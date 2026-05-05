@@ -6,7 +6,7 @@ A modern and responsive task management application built with React + JS and Vi
 
 ## 🌐 Live Demo
 
-🔗 **Live Website:** (https://focus-board-app.netlify.app)
+🔗 **Live Website:** (https://focus-board-app.netlify.app/)
 
 ---
 
