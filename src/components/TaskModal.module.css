@@ -28,10 +28,12 @@
   border: 2px solid #00d4ff;
   border-radius: 12px;
   padding: 30px;
-  max-width: 400px;
+  max-width: 450px;
   width: 90%;
   box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
   animation: slideUp 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes slideUp {
@@ -49,13 +51,28 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #00d4ff;
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
   text-align: center;
 }
 
+/* Form Group */
+.formGroup {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #00d4ff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .input {
-  width: 100%;
-  padding: 15px 18px;
+  padding: 12px 15px;
   background-color: #0a0e27;
   border: 2px solid #2a3050;
   border-radius: 8px;
@@ -64,7 +81,6 @@
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   transition: all 0.3s ease;
-  margin-bottom: 25px;
   outline: none;
 }
 
@@ -78,9 +94,45 @@
   box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
 }
 
+/* Priority Options */
+.priorityOptions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.priorityButton {
+  padding: 12px 15px;
+  background-color: #0a0e27;
+  border: 2px solid #2a3050;
+  border-radius: 8px;
+  color: #b0b0b0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Roboto", sans-serif;
+  white-space: nowrap;
+}
+
+.priorityButton:hover {
+  border-color: #00d4ff;
+  color: #00d4ff;
+}
+
+.priorityButton.activePriority {
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  border-color: #00d4ff;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+  font-weight: 700;
+}
+
+/* Button Group */
 .buttonGroup {
   display: flex;
   gap: 12px;
+  margin-top: 25px;
 }
 
 .saveButton,
@@ -137,7 +189,18 @@
     margin-bottom: 15px;
   }
 
+  .priorityOptions {
+    grid-template-columns: 1fr;
+  }
+
   .buttonGroup {
     flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .saveButton,
+  .cancelButton {
+    padding: 10px 16px;
   }
 }
