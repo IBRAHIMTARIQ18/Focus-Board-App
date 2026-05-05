@@ -1,16 +1,97 @@
-# React + Vite
+# 🚀 Focus Board App — Smart Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive task management application built with React + JS and Vite as a bundler. Focus Board helps users efficiently manage daily tasks with advanced filtering, prioritization, and productivity-focused features.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Demo
 
-## React Compiler
+🔗 **Live Website:** (https://focus-board-app.netlify.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ➕ Add, edit, and delete tasks (Full CRUD functionality)
+- ✅ Mark tasks as completed (interactive check system)
+- 🔍 Search tasks in real-time
+- 🎯 Filter tasks by:
+  - Status (All, Pending, Completed)
+  - Priority (High, Medium, Low)
+- 🚦 Set task priority levels
+- 📅 Assign due dates using calendar input
+- 📊 Task statistics dashboard:
+  - Total tasks
+  - Completed tasks
+  - Pending tasks
+- 🎨 Gradient background
+- ✨ Smooth UI interactions and animations
+- 📱 Fully responsive design (mobile, tablet, desktop)
+
+---
+
+## 🛠️ Tech Stack
+
+- **ReactJS**
+- **JavaScript (ES6+)**
+- **CSS3 (Custom Styling + Animations)**
+- **Vite**
+
+---
+
+## 📁 Project Structure
+
+```bash
+src/
+│
+├── components/
+│   ├── Todo.jsx
+│   ├── TaskModal.jsx
+│   ├── Todo.module.css
+│   └── TaskModal.module.css
+│
+├── App.jsx
+├── App.css
+├── main.jsx
+└── index.css
+```
+
+---
+
+## Installation & Setup
+
+Clone the repository:
+
+```bash
+git clone <your-repo-link>
+```
+
+Move into the project folder:
+
+```bash
+cd focusBoard
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+The project will run locally on:
+
+```bash
+http://localhost:5173
+```
+
+---
+
+## Author
+
+**M. Ibrahim Tariq**
