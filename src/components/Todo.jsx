@@ -7,6 +7,9 @@ function Todo() {
   const [inputValue, setInputValue] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [statusFilter, setStatusFilter] = useState("all"); // all, completed, pending
+  const [priorityFilter, setPriorityFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Load tasks from localStorage on mount
   useEffect(() => {
@@ -33,6 +36,9 @@ function Todo() {
       id: Date.now() + Math.random(),
       title: inputValue.trim(),
       createdAt: new Date().toISOString(),
+      completed: false,
+      priority: "medium",
+      dueDate: null,
     };
 
     setTasks([...tasks, newTask]);
@@ -42,6 +48,15 @@ function Todo() {
   // Delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  // Toggle task completion
+  const toggleTaskCompletion = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
   };
 
   // Open edit modal
@@ -57,16 +72,51 @@ function Todo() {
   };
 
   // Update task
-  const updateTask = (newTitle) => {
+  const updateTask = (updatedData) => {
     if (!editingTask) return;
 
     setTasks(
       tasks.map((task) =>
-        task.id === editingTask.id ? { ...task, title: newTitle } : task,
+        task.id === editingTask.id ? { ...task, ...updatedData } : task,
       ),
     );
     closeEditModal();
   };
+
+  // Filter and search tasks
+  const getFilteredTasks = () => {
+    let filtered = tasks;
+
+    // Status filter
+    if (statusFilter === "completed") {
+      filtered = filtered.filter((task) => task.completed);
+    } else if (statusFilter === "pending") {
+      filtered = filtered.filter((task) => !task.completed);
+    }
+
+    // Priority filter
+    if (priorityFilter !== "all") {
+      filtered = filtered.filter((task) => task.priority === priorityFilter);
+    }
+
+    // Search filter
+    if (searchQuery.trim()) {
+      filtered = filtered.filter((task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
+    }
+
+    return filtered;
+  };
+
+  // Calculate statistics
+  const stats = {
+    total: tasks.length,
+    completed: tasks.filter((task) => task.completed).length,
+    pending: tasks.filter((task) => !task.completed).length,
+  };
+
+  const filteredTasks = getFilteredTasks();
 
   // Handle Enter key press in input
   const handleKeyPress = (e) => {
@@ -75,10 +125,67 @@ function Todo() {
     }
   };
 
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  // Get priority color
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case "high":
+        return "#ff4444";
+      case "medium":
+        return "#ffaa00";
+      case "low":
+        return "#44aa44";
+      default:
+        return "#00d4ff";
+    }
+  };
+
+  // Get priority emoji
+  const getPriorityEmoji = (priority) => {
+    switch (priority) {
+      case "high":
+        return "🔴";
+      case "medium":
+        return "🟡";
+      case "low":
+        return "🟢";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1 className={styles.title}>My Tasks</h1>
+        <h1 className={styles.title}>Focus Board</h1>
+
+        {/* Stats Section */}
+        {tasks.length > 0 && (
+          <div className={styles.statsSection}>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{stats.total}</div>
+              <div className={styles.statLabel}>Total Tasks</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{stats.completed}</div>
+              <div className={styles.statLabel}>Completed</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{stats.pending}</div>
+              <div className={styles.statLabel}>Pending</div>
+            </div>
+          </div>
+        )}
 
         {/* Input Section */}
         <div className={styles.inputSection}>
@@ -99,29 +206,148 @@ function Todo() {
           </button>
         </div>
 
+        {/* Search Section */}
+        <div className={styles.searchSection}>
+          <input
+            type="text"
+            className={styles.searchInput}
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        {/* Filter Buttons */}
+        <div className={styles.filterSection}>
+          <div className={styles.filterGroup}>
+            <span className={styles.filterLabel}>Status:</span>
+            <button
+              className={`${styles.filterButton} ${
+                statusFilter === "all" ? styles.active : ""
+              }`}
+              onClick={() => setStatusFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`${styles.filterButton} ${
+                statusFilter === "pending" ? styles.active : ""
+              }`}
+              onClick={() => setStatusFilter("pending")}
+            >
+              ⏳ Pending
+            </button>
+            <button
+              className={`${styles.filterButton} ${
+                statusFilter === "completed" ? styles.active : ""
+              }`}
+              onClick={() => setStatusFilter("completed")}
+            >
+              ✅ Completed
+            </button>
+          </div>
+
+          <div className={styles.filterGroup}>
+            <span className={styles.filterLabel}>Priority:</span>
+            <button
+              className={`${styles.filterButton} ${
+                priorityFilter === "all" ? styles.active : ""
+              }`}
+              onClick={() => setPriorityFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`${styles.filterButton} ${
+                priorityFilter === "high" ? styles.active : ""
+              }`}
+              onClick={() => setPriorityFilter("high")}
+            >
+              🔴 High
+            </button>
+            <button
+              className={`${styles.filterButton} ${
+                priorityFilter === "medium" ? styles.active : ""
+              }`}
+              onClick={() => setPriorityFilter("medium")}
+            >
+              🟡 Medium
+            </button>
+            <button
+              className={`${styles.filterButton} ${
+                priorityFilter === "low" ? styles.active : ""
+              }`}
+              onClick={() => setPriorityFilter("low")}
+            >
+              🟢 Low
+            </button>
+          </div>
+        </div>
+
         {/* Task List Section */}
         <div className={styles.taskListContainer}>
-          {tasks.length === 0 ? (
+          {filteredTasks.length === 0 ? (
             <div className={styles.emptyState}>
-              <p>No tasks yet. Add one to get started! 🎯</p>
+              <p>
+                {tasks.length === 0
+                  ? "No tasks yet. Add one to get started! 🎯"
+                  : "No tasks match your filters. 🔍"}
+              </p>
             </div>
           ) : (
             <ul className={styles.taskList}>
-              {tasks.map((task) => (
-                <li key={task.id} className={styles.taskItem}>
-                  <span className={styles.taskTitle}>{task.title}</span>
+              {filteredTasks.map((task) => (
+                <li
+                  key={task.id}
+                  className={`${styles.taskItem} ${
+                    task.completed ? styles.completed : ""
+                  }`}
+                >
+                  <div className={styles.taskContent}>
+                    <input
+                      type="checkbox"
+                      className={styles.checkbox}
+                      checked={task.completed}
+                      onChange={() => toggleTaskCompletion(task.id)}
+                      title="Mark as complete"
+                    />
+                    <div className={styles.taskInfo}>
+                      <span
+                        className={`${styles.taskTitle} ${
+                          task.completed ? styles.completedText : ""
+                        }`}
+                      >
+                        {task.title}
+                      </span>
+                      <div className={styles.taskMeta}>
+                        <span
+                          className={styles.priorityBadge}
+                          title={`Priority: ${task.priority}`}
+                        >
+                          {getPriorityEmoji(task.priority)}
+                        </span>
+                        {task.dueDate && (
+                          <span className={styles.dueDateBadge}>
+                            📅 {formatDate(task.dueDate)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                   <div className={styles.actionButtons}>
                     <button
                       className={styles.editButton}
                       onClick={() => openEditModal(task)}
+                      title="Edit task"
                     >
-                      Edit
+                      ✏️
                     </button>
                     <button
                       className={styles.deleteButton}
                       onClick={() => deleteTask(task.id)}
+                      title="Delete task"
                     >
-                      Delete
+                      🗑️
                     </button>
                   </div>
                 </li>
@@ -129,13 +355,6 @@ function Todo() {
             </ul>
           )}
         </div>
-
-        {/* Task Counter */}
-        {tasks.length > 0 && (
-          <div className={styles.taskCounter}>
-            {tasks.length} {tasks.length === 1 ? "task" : "tasks"} total
-          </div>
-        )}
       </div>
 
       {/* Edit Modal */}
