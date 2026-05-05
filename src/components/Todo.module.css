@@ -1,0 +1,240 @@
+/* Todo Component Styling - Dark Theme */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  padding: 40px 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Title */
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #00d4ff;
+  text-align: center;
+  margin: 0 0 40px 0;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  letter-spacing: -0.5px;
+}
+
+/* Input Section */
+.inputSection {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.input {
+  flex: 1;
+  padding: 15px 18px;
+  background-color: #1a1f3a;
+  border: 2px solid #2a3050;
+  border-radius: 10px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #6a7099;
+}
+
+.input:focus {
+  border-color: #00d4ff;
+  background-color: #252a45;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.addButton {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-family: "Roboto", sans-serif;
+}
+
+.addButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+}
+
+.addButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.addButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Task List Container */
+.taskListContainer {
+  margin-bottom: 30px;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #1a1f3a;
+  border-radius: 12px;
+  border: 2px dashed #2a3050;
+}
+
+.emptyState p {
+  color: #6a7099;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Task List */
+.taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Task Item */
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background-color: #1a1f3a;
+  border: 2px solid #2a3050;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.taskItem:hover {
+  border-color: #00d4ff;
+  background-color: #252a45;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.15);
+  transform: translateX(4px);
+}
+
+.taskTitle {
+  flex: 1;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-weight: 500;
+  word-break: break-word;
+  margin-right: 15px;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.editButton,
+.deleteButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Roboto", sans-serif;
+  white-space: nowrap;
+}
+
+.editButton {
+  background-color: #00d4ff;
+  color: #000;
+}
+
+.editButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
+}
+
+.editButton:active {
+  transform: translateY(0);
+}
+
+.deleteButton {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.deleteButton:hover {
+  background-color: #ff3838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+}
+
+.deleteButton:active {
+  transform: translateY(0);
+}
+
+/* Task Counter */
+.taskCounter {
+  text-align: center;
+  color: #6a7099;
+  font-size: 0.95rem;
+  padding: 15px;
+  background-color: #1a1f3a;
+  border-radius: 10px;
+  border: 2px solid #2a3050;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 16px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .inputSection {
+    flex-direction: column;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+
+  .taskItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .taskTitle {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .actionButtons {
+    width: 100%;
+  }
+
+  .editButton,
+  .deleteButton {
+    flex: 1;
+  }
+}

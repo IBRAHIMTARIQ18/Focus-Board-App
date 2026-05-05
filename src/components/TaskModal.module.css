@@ -1,0 +1,143 @@
+/* TaskModal Component Styling - Dark Theme */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: linear-gradient(135deg, #1a1f3a 0%, #252a45 100%);
+  border: 2px solid #00d4ff;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00d4ff;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 15px 18px;
+  background-color: #0a0e27;
+  border: 2px solid #2a3050;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  margin-bottom: 25px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #6a7099;
+}
+
+.input:focus {
+  border-color: #00d4ff;
+  background-color: #1a1f3a;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.saveButton,
+.cancelButton {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Roboto", sans-serif;
+}
+
+.saveButton {
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  color: #000;
+}
+
+.saveButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+}
+
+.saveButton:active {
+  transform: translateY(0);
+}
+
+.cancelButton {
+  background-color: #2a3050;
+  color: #e0e0e0;
+  border: 2px solid #3a4060;
+}
+
+.cancelButton:hover {
+  background-color: #3a4060;
+  transform: translateY(-2px);
+}
+
+.cancelButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .modal {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}
